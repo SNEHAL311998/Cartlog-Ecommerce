@@ -1,0 +1,21 @@
+@import '../../../_variables.scss';
+
+.breadcrumb{
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  color: $grey-breadcrumb;
+  .homePage{
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    &:hover{
+      color: $black-color;
+    }
+  }
+  .arrowRight{
+    opacity: 0.5;
+  }
+  .category{
+    text-transform: capitalize;
+  }
+}

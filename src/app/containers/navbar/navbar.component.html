@@ -1,0 +1,115 @@
+<div [ngClass]="{'navbar-container':true,'navbar-shadow':scrolled}">
+  <div class="navbar-logo">
+    <a routerLink="/">Cartlog</a>
+  </div>
+  <div class="navbar-search">
+    <div class="p-input-icon-left">
+      <div class="formContainer">
+        <input type="text" class="searchInput" placeholder="Search products" [(ngModel)] = "searchTerm" (input)="onSearch($event)" (click)="handleClick('recent')">
+        <i class="pi pi-search searchIcon"></i>
+      </div>
+
+      <div class="overlay" *ngIf="isSuggested || isRecent" (click)="handleClick('overlay')"></div>
+      <div class="autosuggestion-section" *ngIf="isSuggested && searchResult.length>0">
+        <ul class="autosuggestion-lists">
+          <li class="autosuggestion-item" *ngFor="let item of searchResult">
+            <a (click)="handleClick('route',item)">
+              <img [src]="item.images[0]" alt="" class="search-img">
+              <p>{{item.name}}</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="autosuggestion-section" *ngIf="isRecent && recent.length>0">
+        <ul class="autosuggestion-lists">
+          <p class="recent">Recently Searched</p>
+          <li class="autosuggestion-item" *ngFor="let item of recent.slice().reverse()">
+            <a (click)="handleClick('route',item)">
+              <img [src]="item.images[0]" alt="" class="search-img">
+              <p>{{item.name}}</p>
+            </a>
+            <i class="pi pi-times" (click)="handleClick('recentdelete',item)"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="navbar-profile desktopOptions">
+    <div class="dropdown-wrapper">
+      <p-avatar icon="pi pi-user" pBadge value="4" severity="success" styleClass="mr-2" [style]="styleBadge" shape="circle"
+        (click)="toggleDropdown()"></p-avatar>
+      <ul class="profile-dropdown" *ngIf="isDropdownOpen">
+        <!-- <a routerLink="/giftcard" (click)="handleClick('linkclick')" class="dropdown-options"><li>Profile</li></a> -->
+        <a routerLink="/orders" (click)="handleClick('linkclick')" class="dropdown-options">
+          <li><i class="pi pi-tag"></i> Orders</li>
+        </a>
+        <a routerLink="/address" (click)="handleClick('linkclick')" class="dropdown-options">
+          <li><i class="pi pi-map-marker"></i> Address</li>
+        </a>
+        <a routerLink="/giftcard" (click)="handleClick('linkclick')" class="dropdown-options">
+          <li><i class="pi pi-gift"></i> Gift Card</li>
+        </a>
+        <a routerLink="/wallet" (click)="handleClick('linkclick')" class="dropdown-options">
+          <li><i class="pi pi-wallet"></i> Wallet</li>
+        </a>
+      </ul>
+    </div>
+    <a routerLink="wishlist">
+      <div class="wishlist-wrapper">
+        <p-avatar icon="pi pi-heart" pBadge value="4" severity="success" styleClass="mr-2" [style]="styleBadge" shape="circle"></p-avatar>
+        <span *ngIf="wishlist.length">{{wishlist.length}}</span>
+      </div>
+    </a>
+    
+    <div class="wishlist-wrapper">
+      <a routerLink="/cart">
+        <p-avatar icon="pi pi-cart-plus" pBadge value="4" severity="success" styleClass="mr-2" [style]="styleBadge"
+        shape="circle"></p-avatar>
+        <span *ngIf="cart.length>0">{{cart.length}}</span>
+      </a>
+    </div>
+  </div>
+  <div class="navbar-profile mobileOptions">
+    <p-avatar icon="pi pi-bars" pBadge value="4" severity="success" styleClass="mr-2" [style]="styleBadge"
+      shape="circle" (click)="openCart()"></p-avatar>
+  </div>
+
+  <!-- Slider -->
+  <div class="slider">
+    <p-dialog [(visible)]="isCartOpen" [modal]="true" [style]="rightsheetStyle" [draggable]="false"
+      [resizable]="false" [position]="position">
+      <ul class="sidebar-wrapper">
+        <!-- <a routerLink="wishlist">
+          <div class="wishlist-wrapper">
+            <p-avatar icon="pi pi-heart" pBadge value="4" severity="success" styleClass="mr-2" [style]="styleBadge" shape="circle"></p-avatar>
+            <span *ngIf="wishlist.length">{{wishlist.length}}</span>
+          </div>
+        </a> -->
+        <!-- <a routerLink="/cart">
+          <p-avatar icon="pi pi-cart-plus" pBadge value="4" severity="success" styleClass="mr-2" [style]="styleBadge"
+          shape="circle"></p-avatar>
+          <span *ngIf="cart.length>0">{{cart.length}}</span>
+        </a> -->
+        <a routerLink="/wishlist" (click)="handleClick('sidebarClick')" class="sidebar-options">
+          <li><i class="pi pi-heart"></i> Wishlist <span *ngIf="wishlist.length">{{wishlist.length}}</span></li>
+        </a>
+        <a routerLink="/cart" (click)="handleClick('sidebarClick')" class="sidebar-options">
+          <li><i class="pi pi-cart-plus"></i> Cart <span *ngIf="cart.length>0">{{cart.length}}</span></li>
+        </a>
+        <a routerLink="/orders" (click)="handleClick('sidebarClick')" class="sidebar-options">
+          <li><i class="pi pi-tag"></i> Orders</li>
+        </a>
+        <a routerLink="/address" (click)="handleClick('sidebarClick')" class="sidebar-options">
+          <li><i class="pi pi-map-marker"></i> Address</li>
+        </a>
+        <a routerLink="/giftcard" (click)="handleClick('sidebarClick')" class="sidebar-options">
+          <li><i class="pi pi-gift"></i> Gift Card</li>
+        </a>
+        <a routerLink="/wallet" (click)="handleClick('sidebarClick')" class="sidebar-options">
+          <li><i class="pi pi-wallet"></i> Wallet</li>
+        </a>
+      </ul>
+    </p-dialog>
+  </div>
+
+</div>

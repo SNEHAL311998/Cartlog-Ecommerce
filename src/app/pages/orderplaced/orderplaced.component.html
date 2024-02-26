@@ -1,0 +1,100 @@
+<div class="placed-container">
+  <div class="placed-text">
+    <div class="placed-title">Thank you for your purchase!</div>
+    <div class="placed-subtext">Your order will be processed. We will notify you by email once your order has been shipped</div>
+    <div class="placed-billing-address">
+      <div class="billing-title">Billing address</div>
+      <div class="billing-wrapper">
+        <div class="billing-section">
+          <p class="billing-property">Name</p>
+          <p class="billing-value">{{allReceiptData?.address?.name}}</p>
+        </div>
+        <div class="billing-section">
+          <p class="billing-property">Address</p>
+          <p class="billing-value">{{allReceiptData?.address?.locality}}, {{allReceiptData?.address?.address}}, {{allReceiptData?.address?.district}}, {{allReceiptData?.address?.state}}, {{allReceiptData?.address?.landmark}}, {{allReceiptData?.address?.pincode}}</p>
+        </div>
+        <div class="billing-section">
+          <p class="billing-property">Address Type</p>
+          <p class="billing-value">{{allReceiptData?.address?.addressType | titlecase}}</p>
+        </div>
+        <div class="billing-section">
+          <p class="billing-property">Phone</p>
+          <p class="billing-value">{{allReceiptData?.address?.mobile}}</p>
+        </div>
+        <div class="billing-section" *ngIf="allReceiptData?.address?.alternatePhone">
+          <p class="billing-property">Alternate Phone</p>
+          <p class="billing-value">{{allReceiptData?.address?.alternatePhone}}</p>
+        </div>
+      </div>
+      <div class="all-orders">
+        <p (click)="downloadPDF()">
+          <i class="pi pi-download"></i>
+          <span>Download Invoice</span>
+        </p>
+        <p><a routerLink="/orders">All Orders</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="placed-reciept" #receipt>
+    <div class="receipt">
+      <div class="style-div"></div>
+      <div class="receipt-list">
+        <div class="receipt-header">
+          <div class="receipt-title">Order Summary</div>
+          <div class="receipt-details">
+            <div class="receipt-detail">
+              <p class="receipt-subheading">Date</p>
+              <p class="receipt-subheading-value">{{allReceiptData?.date}}</p>
+            </div>
+            <div class="receipt-detail">
+              <p class="receipt-subheading">Order ID</p>
+              <p class="receipt-subheading-value">{{allReceiptData?.id}}</p>
+            </div>
+            <div class="receipt-detail">
+              <p class="receipt-subheading">Payment Method</p>
+              <p class="receipt-subheading-value">Visa</p>
+            </div>
+          </div>
+        </div>
+        <div class="side-curve side-curve-1"></div>
+        <div class="side-curve side-curve-2"></div>
+        <div class="receipt-body">
+          <div class="receipt-body-section">
+            <div class="receipt-body-item" *ngFor="let item of allReceiptData?.cart">
+              <app-list-view [cartData]="item"></app-list-view>
+            </div>
+          </div>
+          <div class="receipt-body-section">
+            <div class="receipt-subtotal-section">
+              <div class="receipt-subtotal-item">
+                <p class="receipt-subtotal-value">Sub Total</p>
+                <p class="receipt-subtotal-value">₹{{allReceiptData?.summary?.subtotal}}</p>
+              </div>
+              <div class="receipt-subtotal-item">
+                <p class="receipt-subtotal-value">Shipping & Delivery Fee</p>
+                <p class="receipt-subtotal-value">₹{{allReceiptData?.summary?.shipping}}</p>
+              </div>
+              <div class="receipt-subtotal-item">
+                <p class="receipt-subtotal-value">Coupon Discount</p>
+                <p class="receipt-subtotal-value">₹{{allReceiptData?.summary?.couponsDiscount}}</p>
+              </div>
+              <div class="receipt-subtotal-item">
+                <p class="receipt-subtotal-value">Redeem Points</p>
+                <p class="receipt-subtotal-value">₹{{allReceiptData?.summary?.isChecked ? allReceiptData?.summary?.redeemPoints: 0}}</p>
+              </div>
+              <div class="receipt-subtotal-item">
+                <p class="receipt-subtotal-value">Wallet</p>
+                <p class="receipt-subtotal-value">₹{{allReceiptData?.summary?.useWallet ? allReceiptData?.summary?.partialPayment: 0}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="receipt-order-total">
+            <p class="receipt-order-item">Order Total</p>
+            <p class="receipt-order-item">₹{{allReceiptData?.summary?.finalAmount}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

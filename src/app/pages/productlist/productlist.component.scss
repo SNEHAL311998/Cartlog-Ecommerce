@@ -1,0 +1,323 @@
+@import '../../../_variables.scss';
+
+.productlist-container {
+  display: flex;
+  gap: 50px;
+  margin: 50px 10%;
+
+  .productlist-filters {
+    flex: 1;
+    height: 70vh;
+    overflow: scroll;
+    position: sticky;
+    top: 100px;
+    
+    .productlist-section {
+      background-color: $nav-background;
+      border-bottom: 1px solid $grey-border;
+      // margin-bottom: 20px;
+      padding: 20px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .main-filter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .productlist-title {
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        .productlist-clear {
+          text-transform: uppercase;
+          font-size: 12px;
+          color: $clear-color;
+          font-weight: 600;
+          cursor: pointer;
+        }
+      }
+
+      .filter-chips {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 10px 0;
+
+        .filter-chip {
+          background-color: $grey-border;
+          padding: 3px 8px;
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          justify-content: space-between;
+          border-radius: 8px;
+          font-size: 14px;
+          i {
+            font-size: 10px;
+          }
+        }
+      }
+
+      .filter-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+
+        .productlist-title {
+          font-size: 18px;
+          font-weight: 600;
+        }
+      }
+
+      .filter-values {
+        .productlist-clear {
+          font-size: 12px;
+          color: $clear-color;
+          text-transform: uppercase;
+          cursor: pointer;
+          margin: 10px 0;
+        }
+
+        .filter {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 5px;
+          .input-checkbox{
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .productlist-wrapper {
+    flex: 3;
+
+    .sort-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      
+      // background-color: red;
+      .sort-section-1 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        .sort-filter{
+          display: none;
+        }
+        .sort-desktop-wrapper{
+          padding: 10px;
+          padding-left: unset;
+          display: flex;
+          gap: 10px;
+  
+          .sort-title {
+            font-weight: 700;
+            padding: 5px 0;
+          }
+  
+  
+          .sort-item {
+            cursor: pointer;
+            padding: 5px 8px;
+          }
+          
+          .sort-item-active {
+            background-color: $black-color;
+            padding: 5px 8px;
+            border-radius: 8px;
+            color: $nav-background;
+          }
+        }
+      }
+
+      .sort-section-2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .grid-icons {
+          cursor: pointer;
+          font-size: 25px;
+          color: $grey-breadcrumb;
+        }
+
+        .grid-list-icons {
+          font-size: 33px;
+          padding-bottom: 3px;
+        }
+
+        .grid-icons-active {
+          color: $clear-color;
+        }
+      }
+    }
+
+    // .productlist-container-items {
+    //   display: flex;
+    // }
+  }
+}
+
+.slider{
+  .sort-sidebar{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+    .sort-sidebar-wrapper{
+      display: flex;
+      gap: 20px;
+      .sort-item{
+        font-size: 15px;
+      }
+    }
+  }
+  .productlist-filters-sidebar {
+    
+    .productlist-section {
+      background-color: $nav-background;
+      border-bottom: 1px solid $grey-border;
+      // margin-bottom: 20px;
+      padding: 20px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .main-filter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .productlist-title {
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        .productlist-clear {
+          text-transform: uppercase;
+          font-size: 12px;
+          color: $clear-color;
+          font-weight: 600;
+          cursor: pointer;
+        }
+      }
+
+      .filter-chips {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 10px 0;
+
+        .filter-chip {
+          background-color: $grey-border;
+          padding: 3px 8px;
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          justify-content: space-between;
+          border-radius: 8px;
+          font-size: 14px;
+          i {
+            font-size: 10px;
+          }
+        }
+      }
+
+      .filter-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+
+        .productlist-title {
+          font-size: 18px;
+          font-weight: 600;
+        }
+      }
+
+      .filter-values {
+        .productlist-clear {
+          font-size: 12px;
+          color: $clear-color;
+          text-transform: uppercase;
+          cursor: pointer;
+          margin: 10px 0;
+        }
+
+        .filter {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 5px;
+          .input-checkbox{
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .productlist-container{
+    margin: 50px 5%;
+    gap: 20px;
+    .productlist-wrapper{
+      .sort-wrapper{
+  
+        .sort-section-1{
+          .sort-title{
+            font-size: 12px;
+          }
+          .sort-item{
+            font-size: 12px;         
+          }
+        }
+      } 
+
+    } 
+  }
+}
+@media screen and (max-width: 768px) {
+  .productlist-container{
+    .productlist-wrapper{
+      .sort-wrapper{
+        .sort-section-1{
+          // flex-wrap: wrap;
+          .sort-desktop-wrapper{
+            display: none;
+          }
+          .sort-title{
+            font-size: 10px;
+          }
+          .sort-item{
+            font-size: 10px;
+            display: flex;
+            gap: 5px;
+            // .sort-text{
+            //   display: none;
+            // }
+            // .sort-icon{
+            //   display: block;
+            //   font-size: 15px;
+            // }    
+          }
+          .sort-filter{
+            display: block;
+          }
+        }
+      }
+    }
+    .productlist-filters {
+      display: none;
+    }
+  }
+}

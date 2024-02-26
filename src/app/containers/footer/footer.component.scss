@@ -1,0 +1,91 @@
+@import '../../../_variables';
+
+.footer-section {
+  background-color: $black-color;
+  color: $nav-background;
+  display: flex;
+  padding: 50px;
+  gap: 20px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+
+  .section-1 {
+    flex: 1;
+    .section-1-title {
+      font-size: 55px;
+      font-family: 'Croissant One', cursive;
+    }
+  }
+  .section-2{
+    flex: 1;
+    .section-2-title{
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
+    .section-2-lists{
+      padding:0;
+      margin:0;
+      li{
+        list-style: none;
+        font-size: 15px;
+        line-height: 2.5;
+      }
+    }
+    .section-1-para{
+      line-height: 2;
+      margin-bottom:20px;
+    }
+    input{
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+    }
+    .footer-subscribe{
+      border-radius: 8px;
+      margin-top: 10px;
+      padding:5px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      background-color: white;
+      font-weight: 600;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footer-section{
+    .section-1{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .section-1-title{
+        font-size: 25px;
+      }
+      .section-1-para{
+        font-size: 14px;
+      }
+    }
+    .section-2{
+      .section-2-title{
+        font-size: 15px;
+        margin-bottom: unset;
+      }
+      .section-2-lists{
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .footer-section{
+    flex-direction: column;
+    .section-2{
+    }
+  }
+  
+}

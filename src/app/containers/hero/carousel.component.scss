@@ -1,0 +1,30 @@
+.carousel-container{
+  width: 100%;
+  .carousel-img{
+    height: 75vh;
+    object-fit:fill;
+  }
+  // box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+@media screen and (max-width: 1024px) {
+  .carousel-container{
+    .carousel-img{
+      height: 70vh;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .carousel-container{
+    .carousel-img{
+      height: 50vh;
+    }
+  }
+}
+@media screen and (max-width: 425px) {
+  .carousel-container{
+    .carousel-img{
+      height: 30vh;
+    }
+  }
+}

@@ -1,0 +1,84 @@
+<div class="singleProduct-section">
+  <div class="singleProduct-imgSection">
+    <div class="singleProduct-vertical">
+      <img [ngClass]="imageClass(item)" [src]="item" alt="Product" (mouseover)='handleFunction(
+          "image",item
+        )' *ngFor="let item of singleProductData?.images">
+    </div>
+    <div class="singleProduct-main">
+      <img [src]="imgValue?imgValue:singleProductData?.images[0]" alt="Product">
+      <div
+      class="wishlist-icon"
+        (click)="handleFunction('wishlist')">
+        <i class='bx bx-heart' [style]="{'color':'red'}" *ngIf="!singleProductData?.isWishlisted"></i>
+        <i class='bx bxs-heart'[style]="{'color':'red'}" *ngIf="singleProductData?.isWishlisted"></i>
+      </div>
+    </div>
+  </div>
+  <div class="singleProduct-descSection">
+    <app-breadcrumb [category]="category"></app-breadcrumb>
+    <div class="singleProduct-title">{{singleProductData?.name}}</div>
+    <div class="singleProduct-price">₹ {{singleProductData?.price}}</div>
+    <div class="singleProduct-rating">
+      {{singleProductData?.rating}}
+      <star-rating [readOnly]="true" [getHalfStarVisible]="singleProductData?.rating" [starType]="'svg'"
+        [showHalfStars]="true" [rating]="singleProductData?.rating"></star-rating>
+    </div>
+    <div class="singleProduct-sizes">
+      <div [ngClass]="currentClass(size)" (click)="handleFunction('size',size)"
+        *ngFor="let size of singleProductData?.sizes">{{size}}</div>
+    </div>
+    <div class="singleProduct-wrapper">
+      <div class="singleProduct-qty">
+        <button class="qty-controls" (click)="handleFunction('qty','-', singleProductData)">-</button>
+        <div class="qty">{{counterValue}}</div>
+        <button class="qty-controls" (click)="handleFunction('qty','+', singleProductData)">+</button>
+      </div>
+      <!-- <button
+        [ngClass]="{'singleProduct-cart-active': singleProductData.isWishlisted, 'singleProduct-cart': !singleProductData.isWishlisted}"
+        (click)="handleFunction('wishlist')">
+        <span *ngIf="!singleProductData.isWishlisted">Buy Now</span>
+        <span *ngIf="singleProductData.isWishlisted">Wishlisted</span>
+      </button> -->
+      <button [ngClass]="{'singleProduct-cart-active': singleProductData?.isAddtoCart, 'singleProduct-cart': !singleProductData?.isAddtoCart}" 
+      (click)="handleFunction('cart',' ', singleProductData)">
+      <span *ngIf="!singleProductData?.isAddtoCart">Add to Cart</span>
+      <span *ngIf="singleProductData?.isAddtoCart">Added to Cart</span>
+    </button>
+    <i class="pi pi-share-alt share" (click)="handleFunction('share')"></i>
+      <!-- <button class="singleProduct-cart" (click)="handleFunction('buynow')">
+        <span>Buy Now</span>
+      </button> -->
+    </div>
+    <div class="singleProduct-productDesc">
+      <p class="product-details">
+        Product Details
+      </p>
+      <p class="product-summary">
+        {{singleProductData?.desc}}
+      </p>
+    </div>
+  </div>
+  <p-toast position="top-center" key="tc"></p-toast>
+
+  <p-dialog [(visible)]="visible" [modal]="true" [breakpoints]="{ '768px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false"
+    [resizable]="false">
+    <div class="share-header">
+      <div class="main-header">
+        <ng-lottie [options]="options">
+        </ng-lottie>
+      </div>
+      <div class="share-text">Share with your Friends</div>
+      <div class="share-input-wrapper">
+        <div class="share-url">{{shareUrl}}</div>
+        <button class="share-btn" (click)="handleFunction('copy')">Copy</button>
+      </div>
+      <div class="social-share">
+        <share-buttons [theme]="'circles-dark'"
+          [include]="['facebook','twitter','whatsapp','telegram','email','messenger','pinterest','reddit']" [show]="5"
+          [url]="shareUrl" [autoSetMeta]="false">
+        </share-buttons>
+      </div>
+    </div>
+  </p-dialog>
+</div>

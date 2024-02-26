@@ -1,0 +1,171 @@
+<div class="productlist-container">
+  <div class="productlist-filters">
+    <div class="productlist-section">
+      <div class="filter-wrapper main-filter">
+        <p class="productlist-title">Filters</p>
+        <p class="productlist-clear" (click)="clearFilters('all')" *ngIf="isPriceChanged|| allFilters.size.length || allFilters.rating.length">Clear all</p>
+      </div>
+      <div class="filter-chips" *ngIf="allFilters.price.length || allFilters.size.length || allFilters.rating.length">
+        <div class="filter-chip" *ngFor="let item of allFilters.size">
+          <span>{{item}}</span>
+          <!-- <i class="pi pi-times"></i> -->
+        </div>
+        <div class="filter-chip" *ngIf="isPriceChanged">
+          <span>{{allFilters.price[0]+' to '+allFilters.price[1]}}</span>
+          <!-- <i class="pi pi-times"></i> -->
+        </div>
+        <div class="filter-chip" *ngFor="let item of allFilters.rating">
+          <span>{{item}}★ & above</span>
+          <!-- <i class="pi pi-times"></i> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="productlist-section">
+      <div class="filter-wrapper">
+        <p class="productlist-title">Price</p>
+      </div>
+      <div class="filter-values">
+        <p class="productlist-clear">clear</p>
+        <p-slider [(ngModel)]="rangeValues" [step]="100" [range]="true" [min]="calculateMinMaxPrices(fullProducts)[0]" [max]="calculateMinMaxPrices(fullProducts)[1]"(onSlideEnd)="updateFilters('price',rangeValues)"></p-slider>
+        <div>{{rangeValues}}</div>
+      </div>
+    </div>
+    <div class="productlist-section">
+      <div class="filter-wrapper">
+        <p class="productlist-title">Ratings</p>
+        <!-- <i class="pi pi-angle-down"></i> -->
+      </div>
+      <div class="filter-values">
+        <p class="productlist-clear" (click)="clearFilters('rating')">clear</p>
+        <div class="filter" *ngFor="let item of filterContent.rating">
+          <!-- <input type="checkbox" class="input-checkbox" [(ngModel)]="ratingSelectStates[item]" (change)="updateFilters('rating', item)"> -->
+            <input type="radio" class="input-checkbox" name="rating" [(ngModel)]="ratingSelectStates" [value]="item"
+              (change)="updateFilters('rating', item)">
+          <p>{{item}}★ & above</p>
+        </div>
+      </div>
+    </div>
+    <div class="productlist-section">
+      <div class="filter-wrapper">
+        <p class="productlist-title">Size</p>
+      </div>
+      <div class="filter-values">
+        <p class="productlist-clear" (click)="clearFilters('size')">clear</p>
+        <div class="filter" *ngFor="let item of filterContent.size">
+          <input type="checkbox" class="input-checkbox" [(ngModel)]="sizeCheckboxStates[item]" (change)="updateFilters('size', item)">
+          <p>{{item}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="productlist-wrapper">
+    <app-breadcrumb [category]="category"></app-breadcrumb>
+    <div class="sort-wrapper">
+      <div class="sort-section-1">
+        <p class="sort-filter" (click)="handleFilter()"><i class="pi pi-filter"></i></p>
+        <div class="sort-desktop-wrapper">
+          <p class="sort-title">Sort By:</p>
+          <p [ngClass]="{'sort-item': true, 'sort-item-active': _sort === 'price' && _order === 'asc' }"
+            (click)="handleSort(1, 'plow')">Price <span class="sort-text">- Low to High</span></p>
+          <p [ngClass]="{'sort-item': true, 'sort-item-active': _sort === 'price' && _order === 'desc' }"
+            (click)="handleSort(2, 'phigh')">Price <span class="sort-text">- High to Low</span></p>
+          <p [ngClass]="{'sort-item': true, 'sort-item-active': _sort === 'rating' && _order === 'asc' }"
+            (click)="handleSort(3, 'rlow')">Rating <span class="sort-text">- Low to Low</span></p>
+          <p [ngClass]="{'sort-item': true, 'sort-item-active': _sort === 'rating' && _order === 'desc' }"
+            (click)="handleSort(4, 'rhigh')">Rating <span class="sort-text">- High to Low</span></p>
+
+        </div>
+      </div>
+      <div class="sort-section-2">
+        <i [ngClass]="{'bx': true, 'bx-list-ul': true, 'grid-icons': true,'grid-list-icons':true, 'grid-icons-active': layout === 'list' }"
+          (click)="handleLayout('list')"></i>
+        <i [ngClass]="{'bx': true, 'bx-grid-alt': true, 'grid-icons': true, 'grid-icons-active': layout === 'grid' }"
+          (click)="handleLayout('grid')"></i>
+      </div>
+    </div>
+    <div class="productlist-container-items" infinite-scroll (scrolled)="loadMoreProducts()" [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
+      [scrollWindow]="true">
+      <app-product-grid [data]="products" [gridlayout]="layout" [location]="'productlist'"></app-product-grid>
+    </div>
+  </div>
+</div>
+
+<div class="slider">
+  <p-dialog [(visible)]="isFilter" [modal]="true" [style]="rightsheetStyle" [draggable]="false"
+    [resizable]="false" [position]="position">
+    <div class="sort-sidebar">
+      <p class="sort-title">Sort By:</p>
+      <div class="sort-sidebar-wrapper">
+        <p [ngClass]="{'sort-item': true, 'sort-item-active': _sort === 'price' && _order === 'asc' }"
+          (click)="handleSort(1, 'plow')">Price <i class="pi pi-arrow-down sort-icon"></i></p>
+        <p [ngClass]="{'sort-item': true, 'sort-item-active': _sort === 'price' && _order === 'desc' }"
+          (click)="handleSort(2, 'phigh')">Price <i class="pi pi-arrow-up sort-icon"></i></p>
+        <p [ngClass]="{'sort-item': true, 'sort-item-active': _sort === 'rating' && _order === 'asc' }"
+          (click)="handleSort(3, 'rlow')">Rating <i class="pi pi-arrow-down sort-icon"></i></p>
+        <p [ngClass]="{'sort-item': true, 'sort-item-active': _sort === 'rating' && _order === 'desc' }"
+          (click)="handleSort(4, 'rhigh')">Rating <i class="pi pi-arrow-up sort-icon"></i></p>
+      </div>
+    </div>
+    <div class="productlist-filters-sidebar">
+      <div class="productlist-section">
+        <div class="filter-wrapper main-filter">
+          <p class="productlist-title">Filters</p>
+          <p class="productlist-clear" (click)="clearFilters('all')" *ngIf="isPriceChanged|| allFilters.size.length || allFilters.rating.length">Clear all</p>
+        </div>
+        <div class="filter-chips" *ngIf="allFilters.price.length || allFilters.size.length || allFilters.rating.length">
+          <div class="filter-chip" *ngFor="let item of allFilters.size">
+            <span>{{item}}</span>
+            <!-- <i class="pi pi-times"></i> -->
+          </div>
+          <div class="filter-chip" *ngIf="isPriceChanged">
+            <span>{{allFilters.price[0]+' to '+allFilters.price[1]}}</span>
+            <!-- <i class="pi pi-times"></i> -->
+          </div>
+          <div class="filter-chip" *ngFor="let item of allFilters.rating">
+            <span>{{item}}★ & above</span>
+            <!-- <i class="pi pi-times"></i> -->
+          </div>
+        </div>
+      </div>
+  
+      <div class="productlist-section">
+        <div class="filter-wrapper">
+          <p class="productlist-title">Price</p>
+        </div>
+        <div class="filter-values">
+          <p class="productlist-clear">clear</p>
+          <p-slider [(ngModel)]="rangeValues" [step]="100" [range]="true" [min]="calculateMinMaxPrices(fullProducts)[0]" [max]="calculateMinMaxPrices(fullProducts)[1]"(onSlideEnd)="updateFilters('price',rangeValues)"></p-slider>
+          <div>{{rangeValues}}</div>
+        </div>
+      </div>
+      <div class="productlist-section">
+        <div class="filter-wrapper">
+          <p class="productlist-title">Ratings</p>
+          <!-- <i class="pi pi-angle-down"></i> -->
+        </div>
+        <div class="filter-values">
+          <p class="productlist-clear" (click)="clearFilters('rating')">clear</p>
+          <div class="filter" *ngFor="let item of filterContent.rating">
+            <!-- <input type="checkbox" class="input-checkbox" [(ngModel)]="ratingSelectStates[item]" (change)="updateFilters('rating', item)"> -->
+              <input type="radio" class="input-checkbox" name="rating" [(ngModel)]="ratingSelectStates" [value]="item"
+                (change)="updateFilters('rating', item)">
+            <p>{{item}}★ & above</p>
+          </div>
+        </div>
+      </div>
+      <div class="productlist-section">
+        <div class="filter-wrapper">
+          <p class="productlist-title">Size</p>
+        </div>
+        <div class="filter-values">
+          <p class="productlist-clear" (click)="clearFilters('size')">clear</p>
+          <div class="filter" *ngFor="let item of filterContent.size">
+            <input type="checkbox" class="input-checkbox" [(ngModel)]="sizeCheckboxStates[item]" (change)="updateFilters('size', item)">
+            <p>{{item}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>

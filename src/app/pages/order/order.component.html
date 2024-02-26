@@ -1,0 +1,14 @@
+<div class="wishlist-container">
+  <div class="wishlist-title" *ngIf="!fromCheckout" (click)="handleClick()">{{content}} Items</div>
+  <div class="empty" *ngIf="data.length===0">
+    <div class="empty-title-wrapper">
+      <p class="empty-title">Your {{content}} is Empty</p>
+      <p class="empty-sub-title">Add Products you like</p>
+    </div>
+    <img src="../../../assets/empty-wishlist.png" *ngIf="location === 'wishlist'" alt="empty wishlist">
+    <img src="../../../assets/empty-cart-1.svg" *ngIf="location === 'cart'" alt="empty wishlist">
+  </div>
+  <div class="content" *ngIf="data.length>0">
+    <app-product-grid [data]="data" [gridlayout]="'list'" [fromCheckout]="fromCheckout" [location]="'order'" [fromCart]="location === 'cart'"></app-product-grid>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="giftcard-container">
+  <div class="giftcard-title">Gift Card <i class="pi pi-gift"></i></div>
+  <!-- <div class="tab-wrapper">
+    <div [ngClass]="{'tab':true,'tab-active':tabState === 1}" (click)="handleFunc('tab',1)">Buy</div>
+    <div [ngClass]="{'tab':true,'tab-active':tabState === 2}" (click)="handleFunc('tab',2)">Add</div>
+  </div> -->
+  <div class="giftcard-wrapper">
+    <div class="giftcard-subtitle">Choose Gift Card</div>
+    <div class="all-giftcards">
+      <div [ngClass]="{'giftcart-single':true,'giftcart-single-selected':selectedGift === item}" *ngFor="let item of giftCards" (click)="handleFunc('giftChoose',item)">
+        <img [src]="item.images[0]" alt="gift card">
+        <p class="giftcard-title-name" [ngStyle]="{'color':item.color2}">GIFT CARD</p>
+        <p class="giftcard-price" [ngStyle]="{'color':item.color1}">₹ {{finalAmnt}}</p>
+        <!-- <p class="giftcard-date" [ngStyle]="{'color':item.color1}">Valid till 10 december 2025</p> -->
+        <p class="giftcard-code" [ngStyle]="{'color':item.color1}">#CARDCODE</p>
+      </div>
+    </div>
+    <div class="giftcard-subtitle">Choose Amount</div>
+    <div class="all-amounts">
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===100}" (click)="handleFunc('chip',100)">₹ 100</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===500}" (click)="handleFunc('chip',500)">₹ 500</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===1000}" (click)="handleFunc('chip',1000)">₹ 1000</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===2000}" (click)="handleFunc('chip',2000)">₹ 2000</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===5000}" (click)="handleFunc('chip',5000)">₹ 5000</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===7000}" (click)="handleFunc('chip',7000)">₹ 7000</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===10000}" (click)="handleFunc('chip',10000)">₹ 10000</div>
+    </div>
+    <div class="giftcard-subtitle">Add custom amount</div>
+    <div class="giftcard-input">
+      <input class="giftcard-input-amount" type="number" min="100" max="10000" [(ngModel)]="enteredAmount"   placeholder="Enter Amount" (input)="handleFunc('buyAmount',$event)">
+      <p class="error" *ngIf="error">Amount should be more than 100 and less than 10000</p>
+    </div>
+    <button [ngClass]="{'giftcard-buy':true,'giftcard-buy-disabled':!selectedGift || error || finalAmnt===0}" [disabled]="!selectedGift || error || finalAmnt===0" (click)="handleFunc('buyNow','')">Buy Now</button>
+    <div class="purchased" *ngIf="allGifts.length>0">
+      <p class="purchased-title">Purchased Gift Cards</p>
+      <div class="all-giftcards">
+        <div [ngClass]="{'giftcart-single': true}" *ngFor="let item of allGifts; let i = index">
+          <img [src]="item.images[0]" alt="gift card" (mouseenter)="handleFunc('overlay',i)">
+          <p class="giftcard-title-name" [ngStyle]="{'color': item.color2}">GIFT CARD</p>
+          <p class="giftcard-price" [ngStyle]="{'color': item.color1}">₹ {{item.price}}</p>
+          <p class="giftcard-date" [ngStyle]="{'color': item.color1}">Valid till {{item.expiry}}</p>
+          <p class="giftcard-code" [ngStyle]="{'color': item.color1}">#{{item.code}}</p>
+          <div class="giftcard-overlay" *ngIf="overlayStates[i]" (mouseleave)="handleFunc('overlay',i)" (click)="handleFunc('copyGift', item)">
+            <i class="pi pi-copy"></i>
+          </div>
+          <div class="giftcard-overlay" *ngIf="item.isUsed">
+            <p class="gift-used">Gift Card used</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast position="top-center" key="tc"></p-toast>

@@ -1,0 +1,16 @@
+.latest-section {
+  font-size: 45px;
+  font-weight: 600;
+  
+  .latest-title {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .latest-section{
+    font-size: 25px;
+  }
+  
+}

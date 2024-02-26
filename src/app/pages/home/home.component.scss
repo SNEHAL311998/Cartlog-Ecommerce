@@ -1,0 +1,23 @@
+@import '../../../_variables.scss';
+
+.home{
+  .section{
+    margin:0 10%;
+  }
+  
+  .banner-section{
+    width: 100%;
+    margin: 20px 0;
+    .latest-img{
+      width: 100%;
+    }
+  }
+
+}
+
+
+@media screen and (max-width: 1024px) {
+  .section{
+    margin: 0 5%;
+  }
+}

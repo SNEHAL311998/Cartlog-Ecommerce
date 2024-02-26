@@ -1,0 +1,36 @@
+.feature-section {
+  .featured-para {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .featured-title {
+    text-align: center;
+    font-size: 45px;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .featured-desc {
+    text-align: center;
+    margin: 0 10%;
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .feature-section{
+    .featured-para{
+      font-size: 10px;
+    }
+    .featured-title{
+      font-size: 25px;
+    }
+    .featured-desc{
+      font-size: 12px;
+    }
+  }
+  
+}

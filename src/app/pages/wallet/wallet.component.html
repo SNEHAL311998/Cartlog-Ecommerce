@@ -1,0 +1,37 @@
+<div class="wallet-container">
+  <div class="wallet-title">Wallet <i class="pi pi-wallet"></i></div>
+  <div class="wallet-wrapper">
+    <div class="current-balance">Current Balance: <span>₹ {{allWallet[0]?.value ? allWallet[0]?.value:0}}</span></div>
+    <div class="giftcard-subtitle">Choose Amount</div>
+    <div class="all-amounts">
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===100}" (click)="handleFunc('chip',100)">₹ 100</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===500}" (click)="handleFunc('chip',500)">₹ 500</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===1000}" (click)="handleFunc('chip',1000)">₹ 1000</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===2000}" (click)="handleFunc('chip',2000)">₹ 2000</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===5000}" (click)="handleFunc('chip',5000)">₹ 5000</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===7000}" (click)="handleFunc('chip',7000)">₹ 7000</div>
+      <div [ngClass]="{'amount':true,'amount-active':enteredChip===10000}" (click)="handleFunc('chip',10000)">₹ 10000</div>
+    </div>
+    <div class="giftcard-subtitle">Add custom amount</div>
+    <div class="giftcard-input">
+      <div class="wrapper-gift">
+
+        <input class="giftcard-input-amount" type="number" min="100" max="10000" [(ngModel)]="enteredAmount"
+        placeholder="Enter Amount" (input)="handleFunc('buyAmount',$event)">
+      </div>
+      <p class="error" *ngIf="error">Amount should be more than 100 and less than 10000</p>
+    </div>
+    <div class="giftcard-subtitle">Have a Gift Card</div>
+    <div class="giftcard-input">
+      <div class="wrapper-gift">
+        <input class="giftcard-input-amount" type="text" [(ngModel)]="giftCode"
+        placeholder="Enter 12 digit Code" (input)="handleFunc('addCode',$event)" [disabled]="isLoader">
+        <p class="loader" *ngIf="isLoader"></p>
+      </div>
+      <p class="error" *ngIf="errorCode">{{errorText}}</p>
+    </div>
+    <button [ngClass]="{'giftcard-buy':true,'giftcard-buy-disabled':error || errorCode || finalAmnt===0}"
+      [disabled]="error || errorCode || finalAmnt===0" (click)="handleFunc('buyNow','')">Add to Wallet</button>
+  </div>
+</div>
+<p-toast position="top-center" key="tc"></p-toast>

@@ -1,0 +1,18 @@
+<div class="banner-section">
+  <div class="banner-item" *ngFor="let item of expertise">
+    <img [src]="item.src" alt="" class="banner-img">
+    <div class="banner-desc">
+      <p class="banner-title">{{item.title}}</p>
+      <p class="banner-para">{{item.para}}</p>
+    </div>
+  </div>
+</div>
+<div class="category-section">
+  <a [routerLink]="item.link" class="category-item" *ngFor="let item of category">
+    <img [src]="item.src" alt="" class="category-img">
+    <div class="category-desc">
+      <p class="category-title">{{item.title}}</p>
+      <!-- <a routerLink="/" class="category-link">View all</a> -->
+    </div>
+  </a>
+</div>

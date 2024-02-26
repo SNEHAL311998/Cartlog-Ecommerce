@@ -1,0 +1,154 @@
+<div class="address-container">
+  <div class="address-container-title">Address <i class="pi pi-map-marker"></i></div>
+  <div class="delivery-address-wrapper">
+    <form class="checkout-delivery-form" (ngSubmit)="submitForm()" [formGroup]="form">
+      <div class="section">
+        <div class="section-wrapper">
+          <div class="input-wrapper">
+            <input required="true" class="checkout-input" type="text" placeholder="Name" formControlName="name">
+            <div class="error-msg" *ngIf="form.get('name')!.hasError('required') && form.get('name')!.touched">
+              Please enter name
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <input required="true" class="checkout-input" type="number" placeholder="10 digit Mobile Number"
+              formControlName="mobile">
+            <div class="error-msg" *ngIf="(form.get('mobile')!.hasError('required')) && form.get('mobile')!.touched">
+              Please enter mobile
+            </div>
+            <div class="error-msg" *ngIf="(form.get('mobile')!.hasError('pattern')) && form.get('mobile')!.touched">
+              Mobile should be 10 digit
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-wrapper">
+          <div class="input-wrapper">
+            <input required="true" class="checkout-input" type="number" placeholder="Enter pincode"
+              formControlName="pincode">
+            <div class="error-msg" *ngIf="(form.get('pincode')!.hasError('required')) && form.get('pincode')!.touched">
+              Please enter pincode
+            </div>
+            <div class="error-msg" *ngIf="(form.get('pincode')!.hasError('pattern')) && form.get('pincode')!.touched">
+              Pincode should be 6 digit
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <input class="checkout-input" type="text" placeholder="Locality" formControlName="locality">
+            <div class="error-msg" *ngIf="form.get('locality')!.hasError('required') && form.get('locality')!.touched">
+              Please enter locality
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="input-wrapper">
+          <textarea class="checkout-input textarea" name="" placeholder="Address (Area and Street)" id="" cols="30"
+            rows="10" formControlName="address"></textarea>
+          <div class="error-msg" *ngIf="form.get('address')!.hasError('required') && form.get('address')!.touched">
+            Please enter address
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-wrapper">
+          <div class="input-wrapper">
+            <div class="checkout-input select-wrapper" (click)="handleFunc('state')">
+              <div class="state-select">
+                <p>{{stateValue ? stateValue : 'State'}}</p>
+                <i [ngClass]="{'bx': true, 'bx-chevron-down': !isStateOpen, 'bx-chevron-up': isStateOpen}"></i>
+                <div class="options-container" *ngIf="isStateOpen">
+                  <div class="options" *ngFor="let item of allStates" (click)="handleFunc('stateSelect', item)">
+                    {{item.state}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="error-msg" *ngIf="isStateTouched && stateValue===''">
+              Please select state
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <div [ngClass]="{'checkout-input': true, 'select-wrapper': true, 'disabled': !selectState}"
+              (click)="handleFunc('district', selectState)">
+              <div class="state-select">
+                <p>{{selectDistrict ? selectDistrict : 'District'}}</p>
+                <i [ngClass]="{'bx': true, 'bx-chevron-down': !isDistrictOpen, 'bx-chevron-up': isDistrictOpen}"></i>
+                <div class="options-container" *ngIf="isDistrictOpen">
+                  <div class="options" *ngFor="let district of selectState.districts"
+                    (click)="handleFunc('districtSelect', district)">{{district}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="error-msg" *ngIf="isDistrictTouched && selectDistrict===''">
+              Please select district
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-wrapper">
+          <div class="input-wrapper">
+            <input class="checkout-input" type="text" placeholder="Landmark (Optional)" formControlName="landmark">
+          </div>
+          <div class="input-wrapper">
+            <input class="checkout-input" type="number" placeholder="Alternate Phone (Optional)"
+              formControlName="alternatePhone">
+          </div>
+        </div>
+      </div>
+      <div class="address-type">
+        <p class="address-title">Address Type</p>
+        <div class="address-wrapper">
+          <div class="address">
+            <input type="radio" name="" id="home" formControlName="addressType" value="home">
+            <label for="home">Home (All day delivery)</label>
+          </div>
+          <div class="address">
+            <input type="radio" name="" id="work" formControlName="addressType" value="work">
+            <label for="work">Work (Delivery between 10 AM - 5 PM)</label>
+          </div>
+        </div>
+      </div>
+      <div class="button-wrapper">
+        <button
+          [ngClass]="{'checkout-btn':!form.invalid, 'checkout-btn-disabled':(form.invalid || stateValue==='' || selectDistrict==='' )}"
+          [disabled]="(form.invalid || stateValue==='' || selectDistrict==='')" type="submit">{{isEditMode ? 'Edit Address' :'Save Address'}}</button>
+        <button class="checkout-clear" type="button" (click)="handleFunc('cancel')">Cancel</button>
+      </div>
+    </form>
+    <div class="saved-address-wrapper" *ngIf="allAddress.length>0">
+      <p class="saved-address-title">Saved Address <span *ngIf="!enableCheckout">( Please select an address )</span></p>
+      <div class="all-address">
+        <div
+          [ngClass]="{'address-item':true, 'address-item-work':item.addressType==='work','address-selected': item.isSelected}"
+          (click)="handleFunc('selectAddress',item)" *ngFor="let item of allAddress.slice().reverse()">
+          <div class="address-header">
+            <p class="address-home">{{item.addressType}}</p>
+            <div class="address-controls">
+              <i class='bx bx-edit-alt address-option' (click)="handleFunc('editAddress',item,$event)"></i>
+              <i class='bx bx-trash address-option' (click)="handleFunc('deleteAddress',item,$event)"></i>
+            </div>
+          </div>
+          <div class="address-section">
+            <p class="address-name">{{item.name}}</p>
+            <p class="address-mobile">{{item.mobile}}</p>
+          </div>
+          <p class="address-locality">{{item.locality}}</p>
+          <p class="address-address">{{item.address}}</p>
+          <div class="address-section">
+            <p class="address-state">{{item.state}}</p>
+            <p class="address-district">{{item.district}}</p>
+            <p class="address-pincode"> - {{item.pincode}}</p>
+          </div>
+          <div class="address-section">
+            <p class="address-landmark" *ngIf="item.landmark"><span>Landmark:</span> {{item.landmark}}</p>
+            <p class="address-alternate" *ngIf="item.alternatePhone"><span>Alternate Phone:</span> {{item.alternatePhone}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

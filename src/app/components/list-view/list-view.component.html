@@ -1,0 +1,13 @@
+<div class="list-item">
+  <div class="list-label">
+    <div class="list-item-detail">
+      <img [src]="cartData.images[0]" alt="">
+      <div class="list-item-all-detail">
+        <p class="list-item-all-title">{{cartData.name}}</p>
+        <p class="list-item-all-size">Size: {{cartData.selectedSize}}</p>
+        <p class="list-item-all-qty">Qty: {{cartData.qty}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="list-value">₹{{cartData?.price}}</div>
+</div>

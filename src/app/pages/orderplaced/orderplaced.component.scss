@@ -1,0 +1,218 @@
+@import '../../../_variables.scss';
+
+.placed-container{
+  margin: 50px 10%;
+  display: flex;
+  gap: 100px;
+  // align-items: center;
+  .placed-text{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 20px;
+
+    .placed-title{
+      font-size: 50px;
+      font-weight: 800;
+      width: 95%;
+    }
+    .placed-subtext{
+      font-size: 20px;
+    }
+    .placed-billing-address{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .billing-title{
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .billing-wrapper{
+        display: flex;
+        flex-direction: column;
+        max-width: 500px;
+        gap: 10px;
+        .billing-section{
+          display: flex;
+          justify-content: space-between;
+          // gap: 10px;
+          .billing-value{
+            text-align: left;
+            width: 300px;
+          }
+        }
+      }
+      .all-orders{
+        display: flex;
+        gap: 10px;
+        p{
+          display: flex;
+          align-items: center;
+          background-color: $black-color;
+          color: $nav-background;
+          width: max-content;
+          padding: 10px 20px;
+          border-radius: 8px;
+          cursor: pointer;
+          i{
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+  .placed-reciept{
+    width: 100%;
+    // position: sticky;
+    // top: 0px;
+    // max-height: 80vh;
+    // overflow: scroll;
+    .receipt {
+      max-width: 700px;
+      margin: 0 auto;
+      $triangle-size: 10px;
+      $stop1: $triangle-size * 1.5;
+      $stop2: $triangle-size * 0.7;
+      $stop1r: $stop1 + 0.01;
+      $stop2r: $stop2 + 0.01;
+      background: 
+        // linear-gradient(135deg, transparent #{$stop1}, $nav-background #{$stop1r}) top left,
+        // linear-gradient(45deg, $nav-background #{$stop2}, transparent #{$stop2r}) top left,
+        linear-gradient(135deg, $nav-background #{$stop2}, transparent #{$stop2r}) bottom left,
+        linear-gradient(45deg, transparent #{$stop1}, $nav-background #{$stop1r}) bottom left;
+      background-repeat: repeat-x;
+      background-size: ($triangle-size * 2) $triangle-size;
+      padding: $triangle-size 0;
+      .style-div{
+        background-color: $grey-border;
+        height: 20px;
+        border-radius: 10px;
+        position: relative;
+        top: 10px;
+      }
+      &-list {
+        position: relative;
+        background-color: $nav-background;
+        .receipt-header{
+          padding:30px 30px 0px 30px ;
+          border-bottom: 2px dashed $grey-border;
+          .receipt-title{
+            font-size: 30px;
+            font-weight: 600;
+            padding-bottom: 20px;
+            border-bottom: 1px solid $grey-border;
+          }
+          .receipt-details{
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            .receipt-detail{
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+              .receipt-subheading{
+                font-size: 12px;
+              }
+              .receipt-subheading-value{
+                font-weight: 600;
+              }
+            }
+          }
+        }
+        .side-curve{
+          height: 30px; 
+          width: 50px; 
+          border-radius: 150px 150px 0 0; 
+          background-color: white;
+          transform: translate(-50%, -50%); 
+        }
+        .side-curve-1{
+          position: absolute;
+          top: 165px;
+          transform: rotate(90deg);
+          left: -20px;
+        }
+        .side-curve-2{
+          position: absolute;
+          transform: rotate(270deg);
+          top: 165px;
+          right: -20px;
+        }
+        .receipt-body{
+          padding: 30px;
+          .receipt-body-section{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid $grey-border;
+          }
+          .receipt-body-section{
+            .receipt-subtotal-section{
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+              margin-top: 10px;
+              .receipt-subtotal-item{
+                display: flex;
+                justify-content: space-between;
+                color: $grey-breadcrumb;
+              }
+            }
+          }
+          .receipt-order-total{
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 20px;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .placed-container{
+    margin: 50px 5%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .placed-container{
+    margin: 50px 5%;
+    flex-direction: column;
+    .placed-text{
+      width: 100%;
+      .placed-billing-address{
+        .billing-wrapper{
+          .billing-section{
+            .billing-property{
+              font-size: 12px;
+            }
+            .billing-value{
+              text-align: right;
+              font-size: 12px;
+            }
+          }
+        } 
+      } 
+      .placed-title{
+        font-size: 30px;
+      }
+    }
+    .placed-reciept{
+      .receipt-list{
+        .receipt-header{
+          .receipt-details{
+            .receipt-detail{
+              .receipt-subheading-value{
+                font-size: 10px;
+              }
+            } 
+          } 
+        } 
+      } 
+    } 
+  }
+}

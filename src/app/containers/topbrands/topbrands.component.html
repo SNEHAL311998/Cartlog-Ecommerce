@@ -1,0 +1,8 @@
+<div class="topbrands-section">
+  <div class="topbrands-container" *ngFor="let item of allBrands">
+    <p class="topbrands-title">{{item.title}}</p>
+    <div class="topbrands-img-container" >
+      <img [src]="brand.src" alt="" class="topbrands-img" *ngFor="let brand of item.brands">
+    </div>
+  </div>
+</div>

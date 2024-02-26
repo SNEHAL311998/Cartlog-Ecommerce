@@ -1,0 +1,135 @@
+<div class="orderlist-container">
+  <div class="orderlist-title">All Orders <i class="pi pi-tag"></i></div>
+  <div class="orderlist-body" *ngIf="allOrder.length>0">
+    <p-table
+      #dt1
+      [value]="allOrder.slice().reverse()"
+      dataKey="id"
+      [scrollable]="true" scrollHeight="600px"
+      [loading]="false"
+      [paginator]="allOrder.length>5?true:false"
+      [rows]="5"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[5, 10, 20, 50]"
+      [globalFilterFields]="['id']"
+      styleClass="p-datatable-striped"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex search-wrapper">
+            <span class="p-input-icon-left ml-auto search-span">
+              <i class="pi pi-search"></i>
+              <input type="text" class="search-input" placeholder="Search Order ID" [(ngModel)]="searchText" (input)="dt1.filterGlobal(searchText, 'contains')">
+              <!-- <input pInputText class="p-inputtext-sm" type="text" [(ngModel)]="searchText" (input)="dt1.filterGlobal(searchText, 'contains')"
+                placeholder="Search Order ID" /> -->
+            </span>
+          </div>
+        </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width:20%">Order ID</th>
+          <th>Item</th>
+          <th pSortableColumn="date" style="width:20%">Date <p-sortIcon field="date"></p-sortIcon></th>
+          <th pSortableColumn="status" style="width:20%">Status <p-sortIcon field="status"></p-sortIcon></th>
+          <th pSortableColumn="summary.finalAmount" style="width:20%">Total <p-sortIcon field="summary.finalAmount"></p-sortIcon></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td><span class="order-id" (click)="showDialog(item)">{{ item.id }}</span></td>
+          <td>
+            <img [src]="item.cart[0].images[0]" alt="" class="td-img">
+            <span class="more-item" *ngIf="item.cart.length>1">+{{item.cart.length-1}}</span>
+          </td>
+          <td>{{ item.date }}</td>
+          <td><p-tag [value]="item.status" [severity]="getSeverity(item.status)"></p-tag></td>
+          <td><span [style]="{'fontWeight':'700'}">{{ item.summary.finalAmount | currency: 'INR' }}</span></td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <p class="empty-message">No Data Found</p>
+        <!-- <div class="empty-message">
+          <ng-lottie [options]="options">
+          </ng-lottie>
+        </div> -->
+      </ng-template>
+    </p-table>
+  </div>
+  <div *ngIf="allOrder.length===0">
+    Nothing here
+  </div>
+  <p-dialog header="Order Details" [(visible)]="visible" [breakpoints]="{ '960px': '95vw' }" [modal]="true" [style]="{ width: '70vw' }" [draggable]="false"
+    [resizable]="false">
+    <div class="order-detail-container">
+      <div class="order-section-1">
+        <p class="order-cart-title">Items</p>
+        <div class="cart-item" *ngFor="let item of singleOrder?.cart">
+          <app-list-view [cartData]="item"></app-list-view>
+        </div>
+      </div>
+      <div class="order-section-2">
+        <div class="order-section-wrapper">
+          <div class="flex">
+            <p class="order-section-subitem">Date: {{singleOrder?.date}}</p>
+            <p class="order-section-subitem">Order ID: {{singleOrder?.id}}</p>
+            <p class="order-section-subitem invoice"><a [routerLink]="'/placed/'+singleOrder?.id">Invoice</a></p>
+          </div>
+        </div>
+        <div class="order-section-wrapper">
+          <p class="order-section-title">Address</p>
+          <div class="order-address-wrapper">
+            <p class="order-address-field">Name</p>
+            <p class="order-address-value">{{singleOrder?.address?.name}}</p>
+          </div>
+          <div class="order-address-wrapper">
+            <p class="order-address-field">Address</p>
+            <p class="order-address-value">{{singleOrder?.address?.locality}}, {{singleOrder?.address?.address}}, {{singleOrder?.address?.district}},
+            {{singleOrder?.address?.state}}, {{singleOrder?.address?.landmark && singleOrder?.address?.landmark}}, {{singleOrder?.address?.pincode}}</p>
+          </div>
+          <div class="order-address-wrapper">
+            <p class="order-address-field">Address Type</p>
+            <p class="order-address-value">{{singleOrder?.address?.addressType | titlecase}}</p>
+          </div>
+          <div class="order-address-wrapper">
+            <p class="order-address-field">Phone</p>
+            <p class="order-address-value">{{singleOrder?.address?.mobile}}</p>
+          </div>
+          <div class="order-address-wrapper" *ngIf="singleOrder?.address?.alternatePhone">
+            <p class="order-address-field">Alternate Phone</p>
+            <p class="order-address-value">{{singleOrder?.address?.alternatePhone}}</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="order-section-wrapper">
+          <p class="order-section-title">Order Summary</p>
+          <div class="order-subtotal-item">
+            <p class="order-subtotal-field">Sub Total</p>
+            <p class="order-subtotal-value">₹{{singleOrder?.summary?.subtotal}}</p>
+          </div>
+          <div class="order-subtotal-item">
+            <p class="order-subtotal-field">Shipping & Delivery Fee</p>
+            <p class="order-subtotal-value">₹{{singleOrder?.summary?.shipping}}</p>
+          </div>
+          <div class="order-subtotal-item">
+            <p class="order-subtotal-field">Coupon Discount</p>
+            <p class="order-subtotal-value">₹{{singleOrder?.summary?.couponsDiscount}}</p>
+          </div>
+          <div class="order-subtotal-item">
+            <p class="order-subtotal-field">Redeem Points</p>
+            <p class="order-subtotal-value">₹{{singleOrder?.summary?.isChecked ? singleOrder?.summary?.redeemPoints: 0}}</p>
+          </div>
+          <div class="order-subtotal-item">
+            <p class="order-subtotal-field">Wallet</p>
+            <p class="order-subtotal-value">₹{{singleOrder?.summary?.useWallet ? singleOrder?.summary?.partialPayment: 0}}</p>
+          </div>
+          <div class="divider"></div>
+          <div class="order-subtotal-item">
+            <p class="total-subtitle">Order Total</p>
+            <p class="total-price">₹{{singleOrder?.summary?.finalAmount}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>

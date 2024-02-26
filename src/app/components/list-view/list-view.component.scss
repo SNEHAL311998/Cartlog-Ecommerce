@@ -1,0 +1,34 @@
+.list-item{
+  display: flex;
+  justify-content: space-between;
+  .list-label{
+    .list-item-detail{
+      display: flex;
+      gap: 20px;
+      img{
+        width: 80px;
+        border-radius: 8px;
+      }
+      .list-item-all-detail{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        .list-item-all-title{
+          font-size: 16px;
+          font-weight: 700;
+        }
+        .list-item-all-size{
+          font-size: 12px;
+        }
+        .list-item-all-qty{
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  .list-value{
+    font-size: 15px;
+    margin-top: 2px;
+    font-weight: 700;
+  }
+}

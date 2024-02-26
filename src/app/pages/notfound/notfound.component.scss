@@ -1,0 +1,33 @@
+@import '../../../_variables';
+
+.error-section{
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  flex-direction: column;
+  .error-content{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    .title{
+      color: $black-color;
+      font-size: 50px;
+      font-weight: 700;
+    }
+    .para{
+      font-size: 20px;
+    }
+    .link{
+      background-color: $black-color;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      width: 150px;
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+}

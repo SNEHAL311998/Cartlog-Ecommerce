@@ -1,0 +1,100 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Croissant+One&family=Italiana&family=Nunito:wght@200;300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&family=Exo+2:wght@200;300;400;500;600;700;800;900&display=swap');
+@import "primeicons/primeicons.css";
+@import "@coreui/coreui/scss/coreui";
+@import 'css-star-rating/scss/star-rating';
+@import './_variables.scss';
+
+* {
+  box-sizing: border-box;
+  // font-family: 'Croissant One', cursive;
+  // font-family: 'Italiana', sans-serif;
+  // font-family: 'Playfair Display', serif;
+  // font-family: 'Nunito', sans-serif;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+p{
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+.rating.color-negative .star-container .star {
+  svg {
+    fill: #0f0;
+  }
+  i {
+    color: #0f0;
+  }
+}
+
+// .p-dialog .p-dialog-header{
+//   padding: 1rem 1.5rem !important;
+// }
+
+::selection {
+  color: $nav-background;
+  background: $black-color;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.rating.color-ok .star-container .star {
+  svg {
+    fill: #f00;
+  }
+  i {
+    color: #f00;
+  }
+}
+
+.rating.color-positive .star-container .star {
+  svg {
+    fill: #00f;
+  }
+  i {
+    color: #00f;
+  }
+}
+
+.rating.color-default .star-container .star {
+  svg {
+    fill: #ff0;
+  }
+  i {
+    color: #ff0;
+  }
+}
+
+::-webkit-scrollbar-track
+{
+	background-color: transparent;
+}
+
+::-webkit-scrollbar
+{
+	width: 5px;
+  height: 5px;
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: rgba(128, 128, 128, 0.589);
+}

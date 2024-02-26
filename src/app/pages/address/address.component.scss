@@ -1,0 +1,301 @@
+@import '../../../_variables.scss';
+
+.address-container{
+  margin: 50px 10%;
+  .address-container-title{
+    font-size: 35px;
+    font-weight: 600;
+    margin: 10px 0;
+  }
+  .delivery-address-wrapper {
+      display: flex;
+      gap: 30px;
+  
+      .checkout-delivery-form {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+  
+        .section {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 10px;
+  
+          .section-wrapper {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+  
+            .input-wrapper {
+              width: 100%;
+  
+              .checkout-input {
+                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid $search-border;
+                outline: none;
+                transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  
+                &:focus {
+                  color: $black-color;
+                  background-color: white;
+                  outline: 0;
+                  box-shadow: 0 0 0 0.25rem $search-shadow;
+                }
+              }
+            }
+          }
+  
+          .error-msg {
+            margin: 5px;
+            color: red;
+            font-size: 12px;
+          }
+  
+          .select-wrapper {
+            cursor: pointer;
+            position: relative;
+  
+            .state-select {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            }
+  
+            .options-container {
+              z-index: 55;
+              margin: 0;
+              background-color: white;
+              box-shadow: 0 3px 10px rgb(0, 0, 0, 0.2);
+              position: absolute;
+              border-radius: 8px;
+              top: 50px;
+              left: 0;
+              width: 100%;
+              height: 180px;
+              overflow: scroll;
+  
+              // padding: 10px 0;
+              .options {
+                padding: 10px;
+  
+                &:hover {
+                  background-color: $nav-background;
+                }
+              }
+            }
+          }
+  
+          .disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+          }
+        }
+  
+        .textarea {
+          width: 100%;
+          padding: 10px;
+          border-radius: 8px;
+          border: 1px solid $search-border;
+          outline: none;
+          transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+          resize: none;
+  
+          &:focus {
+            color: $black-color;
+            background-color: white;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem $search-shadow;
+          }
+        }
+  
+        .address-type {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+  
+          .address-title {
+            font-size: 14px;
+            font-weight: 600;
+          }
+  
+          .address-wrapper {
+            display: flex;
+            gap: 10px;
+  
+            .address {
+              display: flex;
+              gap: 10px;
+  
+              input[type='radio'],
+              label {
+                cursor: pointer;
+              }
+            }
+          }
+        }
+  
+        .button-wrapper {
+          // width: 30%;
+          display: flex;
+          gap: 10px;
+          margin-top: 10px;
+  
+          .checkout-btn {
+            outline: none;
+            border: none;
+            background-color: $black-color;
+            color: $nav-background;
+            // width: 80px;
+            padding: 10px;
+            border-radius: 8px;
+          }
+  
+          .checkout-btn-disabled {
+            outline: none;
+            border: none;
+            padding: 10px;
+            background-color: $black-color;
+            color: $nav-background;
+            // width: 80px;
+            border-radius: 8px;
+            cursor: not-allowed;
+            opacity: 0.6;
+          }
+  
+          .checkout-clear {
+            outline: none;
+            border: none;
+            border: 1px solid $black-color;
+            color: $black-color;
+            // width: 80px;
+            background-color: transparent;
+            padding: 10px;
+            border-radius: 8px;
+          }
+        }
+      }
+    }
+  
+    .saved-address-wrapper {
+      width: 50%;
+  
+      .saved-address-title {
+        font-size: 20px;
+        font-weight: 600;
+  
+        span {
+          font-size: 12px;
+          color: red;
+        }
+      }
+  
+      .all-address {
+        margin-top: 10px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow-y: auto;
+  
+        .address-item {
+          cursor: pointer;
+          background-color: $black-color;
+          color: $nav-background;
+          border-radius: 8px;
+          padding: 10px;
+  
+          .address-header {
+            display: flex;
+            justify-content: space-between;
+  
+            .address-home {
+              font-size: 14px;
+              text-transform: capitalize;
+            }
+  
+            .address-controls {
+              display: flex;
+              gap: 10px;
+  
+              i {
+                cursor: pointer;
+                font-size: 18px;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                border-radius: 50%;
+                justify-content: center;
+  
+                &:hover {
+                  background-color: $nav-background;
+                  color: $black-color;
+                }
+              }
+            }
+          }
+  
+          .address-section {
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+  
+            .address-name {
+              font-size: 22px;
+            }
+  
+            .address-landmark,
+            .address-alternate {
+              flex: 1;
+  
+              span {
+                font-size: 18px;
+                font-weight: 600;
+              }
+            }
+          }
+        }
+  
+        .address-item-work {
+          border: 1px solid $black-color;
+          background-color: unset;
+          color: $black-color;
+        }
+  
+        .address-selected {
+          background-color: green;
+          color: $nav-background;
+        }
+      }
+    }
+}
+
+@media screen and (max-width: 768px) {
+  .delivery-address-wrapper{
+    flex-direction: column;
+    .checkout-delivery-form{
+      width: 100% !important;
+    }
+    .saved-address-wrapper{
+      width: 100% !important;
+    }
+  }
+  
+}
+@media screen and (max-width: 425px) {
+  .delivery-address-wrapper{
+    flex-direction: column;
+    .checkout-delivery-form{
+      .address-type{
+        .address-wrapper{
+          .address{
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+  
+}

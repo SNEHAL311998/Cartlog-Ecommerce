@@ -1,0 +1,108 @@
+@import '../../../_variables.scss';
+
+.wallet-container{
+  margin: 50px 10%;
+  .wallet-title{
+    font-size: 35px;
+    font-weight: 600;
+  }
+  .wallet-wrapper{
+    .current-balance{
+      font-size: 15px;
+      color: green;
+      span{
+        font-size: 20px;
+        font-weight: 600;
+        margin-left: 10px;
+      }
+    }
+    .giftcard-subtitle {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 20px 0;
+    }
+    .all-amounts {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+
+      .amount {
+        border: 1px solid $black-color;
+        border-radius: 8px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+
+      .amount-active {
+        background-color: $black-color;
+        color: $nav-background;
+        cursor: pointer;
+      }
+    }
+    .giftcard-input {
+      .wrapper-gift{
+        width: 30%;
+        position: relative;
+        .giftcard-input-amount {
+          padding: 10px 15px;
+          width: 100%;
+          border-radius: 8px;
+          border: 1px solid $search-border;
+          border-radius: 8px;
+          appearance: none;
+          transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  
+          &:focus {
+            color: $black-color;
+            background-color: white;
+            border-color: $search-focus;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem $search-shadow;
+          }
+        }
+        .loader {
+          position: absolute;
+          width: 25px;
+          height: 25px;
+          border: 2px solid white;
+          border-bottom-color: $black-color;
+          border-radius: 50%;
+          right: 10px;
+          bottom: 13px;
+          box-sizing: border-box;
+          animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+          0% {
+            transform: rotate(0deg);
+          }
+
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      }
+
+      .error {
+        color: red;
+        font-size: 12px;
+        margin-top: 10px;
+      }
+    }
+    .giftcard-buy {
+      background-color: $black-color;
+      border: none;
+      outline: none;
+      color: $nav-background;
+      padding: 10px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+
+    .giftcard-buy-disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+}
